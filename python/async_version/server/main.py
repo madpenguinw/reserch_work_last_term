@@ -5,6 +5,8 @@ from aiohttp import web
 from server.logger import custom_logger, log_middleware
 from server.logic import SubsetSumHandler
 
+# Check Python GitHub actions
+
 
 async def run_app():
     app = web.Application(middlewares=[log_middleware])
