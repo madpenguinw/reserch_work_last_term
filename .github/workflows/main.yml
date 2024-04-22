@@ -11,9 +11,14 @@ jobs:
   python-tests:
     name: Python Tests
     runs-on: ubuntu-latest
-    if: |
+    if: >
       github.event_name == 'push' &&
-      ( github.event.head_commit.modified | any(startswith('python/async_version/')) || github.event.head_commit.modified | any(startswith('python/sync_version/')) )
+      (
+        github.event.head_commit.modified |
+        any(startswith('python/async_version/')) ||
+        github.event.head_commit.modified |
+        any(startswith('python/sync_version/'))
+      )
 
     steps:
       - name: Checkout Repository
@@ -49,9 +54,12 @@ jobs:
   typescript-tests:
     name: TypeScript Tests
     runs-on: ubuntu-latest
-    if: |
+    if: >
       github.event_name == 'push' &&
-      ( github.event.head_commit.modified | any(startswith('glossary/')) )
+      (
+        github.event.head_commit.modified |
+        any(startswith('glossary/'))
+      )
 
     steps:
       - name: Checkout Repository
@@ -73,10 +81,14 @@ jobs:
   javascript-tests:
     name: JavaScript Tests
     runs-on: ubuntu-latest
-    if: |
+    if: >
       github.event_name == 'push' &&
-      ( github.event.head_commit.modified | any(startswith('java-script/async_version/')) || github.event.head_commit.modified | any(startswith('java-script/sync_version/')) )
-
+      (
+        github.event.head_commit.modified |
+        any(startswith('java-script/async_version/')) ||
+        github.event.head_commit.modified |
+        any(startswith('java-script/sync_version/'))
+      )
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
