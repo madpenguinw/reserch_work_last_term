@@ -1,0 +1,97 @@
+name: Run Tests on Push
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**'
+
+jobs:
+  python-tests:
+    name: Python Tests
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' &&
+      ( github.event.head_commit.modified | any(startswith('python/async_version/')) || github.event.head_commit.modified | any(startswith('python/sync_version/')) )
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Poetry Check Sync Python
+        run: |
+              cd python/sync_python/
+              pip install poetry
+              poetry check
+
+      - name: Poetry Check Async Python
+        run: |
+              cd python/async_python/
+              pip install poetry
+              poetry check
+
+      - name: Python Linters
+        run: |
+          poetry run isort --check-only python/async_version
+          poetry run black --check python/async_version
+          poetry run flake8 python/async_version
+
+          poetry run isort --check-only python/sync_version
+          poetry run black --check python/sync_version
+          poetry run flake8 python/sync_version
+
+  typescript-tests:
+    name: TypeScript Tests
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' &&
+      ( github.event.head_commit.modified | any(startswith('glossary/')) )
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '21.7.3'
+
+      - name: Install dependencies
+        run: |
+              npm install --prefix glossary
+
+      - name: Run TypeScript Linters
+        run: |
+          npx eslint glossary --ext .ts
+
+  javascript-tests:
+    name: JavaScript Tests
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'push' &&
+      ( github.event.head_commit.modified | any(startswith('java-script/async_version/')) || github.event.head_commit.modified | any(startswith('java-script/sync_version/')) )
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '21.7.3'
+
+      - name: Install JavaScript dependencies
+        run: |
+          npm install --prefix java-script/async_version
+          npm install --prefix java-script/sync_version
+
+      - name: Run JavaScript Linters
+        run: |
+          npx eslint java-script/async_version
+          npx eslint java-script/sync_version
