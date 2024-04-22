@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  sync_python:
+    build:
+      context: ./python/sync_version
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+  async_python:
+    build:
+      context: ./python/async_version
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+  sync_js:
+    build:
+      context: ./java-script/sync_version
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+  async_js:
+    build:
+      context: ./java-script/async_version
+      dockerfile: Dockerfile
+    ports:
+      - "9001:9001"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+  glossary:
+    build:
+      context: ./glossary
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'

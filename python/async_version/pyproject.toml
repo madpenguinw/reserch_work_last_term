@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "async-version"
+version = "0.1.0"
+description = ""
+authors = ["Mikhail Sokolov <mi.sokolov@innopolis.ru>"]
+readme = "README.md"
+packages = [{include = "async_version"}]
+
+[tool.poetry.dependencies]
+python = "3.12"
+aiohttp = "^3.9.3"
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.0.0"
+black = "^24.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+py_version=310
+profile="black"
+line_length = 79

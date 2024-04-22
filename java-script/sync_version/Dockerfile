@@ -1,0 +1,18 @@
+FROM node:latest
+
+WORKDIR /app
+
+COPY package.json ./
+COPY Processor.js ./
+
+RUN npm install
+
+COPY . .
+
+# Определяем переменную окружения для порта
+ENV PORT=9000
+
+# Открываем порт для внешних запросов (используем значение переменной окружения)
+EXPOSE $PORT
+
+CMD ["node", "app.js"]
