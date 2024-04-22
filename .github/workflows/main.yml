@@ -14,8 +14,8 @@ jobs:
     if: >
       github.event_name == 'push' &&
       (
-        startsWith(github.event.head_commit.modified, 'python/async_version/') ||
-        startsWith(github.event.head_commit.modified, 'python/sync_version/')
+        contains(github.event.commits[*].added, 'python/') ||
+        contains(github.event.commits[*].modified, 'python/')
       )
 
     steps:
