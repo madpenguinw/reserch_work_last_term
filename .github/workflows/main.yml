@@ -14,10 +14,8 @@ jobs:
     if: >
       github.event_name == 'push' &&
       (
-        github.event.head_commit.modified |
-        any(startswith('python/async_version/')) ||
-        github.event.head_commit.modified |
-        any(startswith('python/sync_version/'))
+        startsWith(github.event.head_commit.modified, 'python/async_version/') ||
+        startsWith(github.event.head_commit.modified, 'python/sync_version/')
       )
 
     steps:
@@ -57,8 +55,7 @@ jobs:
     if: >
       github.event_name == 'push' &&
       (
-        github.event.head_commit.modified |
-        any(startswith('glossary/'))
+        startsWith(github.event.head_commit.modified, 'glossary/')
       )
 
     steps:
@@ -84,10 +81,8 @@ jobs:
     if: >
       github.event_name == 'push' &&
       (
-        github.event.head_commit.modified |
-        any(startswith('java-script/async_version/')) ||
-        github.event.head_commit.modified |
-        any(startswith('java-script/sync_version/'))
+        startsWith(github.event.head_commit.modified, 'java-script/async_version/') ||
+        startsWith(github.event.head_commit.modified, 'java-script/sync_version/')
       )
     steps:
       - name: Checkout Repository
