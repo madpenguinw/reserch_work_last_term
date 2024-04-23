@@ -14,10 +14,8 @@ jobs:
     if: >
       github.event_name == 'push' &&
       (
-        contains(github.event.commits[*].added, 'python/') ||
-        contains(github.event.commits[*].modified, 'python/')
+        startsWith(github.event.head_commit.modified, 'python/')
       )
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
