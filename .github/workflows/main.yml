@@ -52,11 +52,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-              npm install --prefix glossary
+              npm install --prefix terms_glossary
 
       - name: Run TypeScript Linters
         run: |
-          npx eslint glossary --ext .ts
+          npx eslint terms_glossary --ext .ts
 
   javascript-tests:
     name: JavaScript Tests

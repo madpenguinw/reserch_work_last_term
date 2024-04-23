@@ -45,9 +45,9 @@ services:
         limits:
           memory: 1G
           cpus: '1'
-  glossary:
+  terms_glossary:
     build:
-      context: ./glossary
+      context: ./terms_glossary
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
