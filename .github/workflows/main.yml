@@ -57,6 +57,7 @@ jobs:
 
       - name: Run TypeScript Linters
         run: |
+         cd terms_glossary
          npx eslint .
 
   javascript-tests:
@@ -81,5 +82,6 @@ jobs:
         run: |
           cd java-script/async_version
           npx eslint .
-          cd java-script/sync_version
+          cd ..
+          cd sync_version/
           npx eslint .
