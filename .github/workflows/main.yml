@@ -52,11 +52,12 @@ jobs:
 
       - name: Install dependencies
         run: |
+              cd terms_glossary
               yarn
 
       - name: Run TypeScript Linters
         run: |
-         eslint terms_glossary --ext .ts
+         npx eslint . --ext .ts
 
   javascript-tests:
     name: JavaScript Tests
