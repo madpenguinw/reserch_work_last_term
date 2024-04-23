@@ -1,10 +1,9 @@
 [tool.poetry]
-name = "async-version"
+name = "async-python"
 version = "0.1.0"
 description = ""
 authors = ["Mikhail Sokolov <mi.sokolov@innopolis.ru>"]
 readme = "README.md"
-packages = [{include = "async_version"}]
 
 [tool.poetry.dependencies]
 python = "3.12"
