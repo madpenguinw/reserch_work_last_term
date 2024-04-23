@@ -18,6 +18,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.12'
+      
+      - name: List Files in Directory
+        run: ls -R python
 
       - name: Poetry Check Sync Python
         run: |
