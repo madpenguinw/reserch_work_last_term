@@ -6,19 +6,9 @@ on:
       - main
 
 jobs:
-  show-changes:
-    name: Show Changes
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      
-      - name: Print Event JSON
-        run: cat $GITHUB_EVENT_PATH
   python-tests:
     name: Python Tests
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.before, '0000000000000000000000000000000000000000') }}
 
     steps:
       - name: Checkout Repository
@@ -54,7 +44,6 @@ jobs:
   typescript-tests:
     name: TypeScript Tests
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.before, '0000000000000000000000000000000000000000') }}
 
     steps:
       - name: Checkout Repository
@@ -76,7 +65,6 @@ jobs:
   javascript-tests:
     name: JavaScript Tests
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && contains(github.event.before, '0000000000000000000000000000000000000000') }}
 
     steps:
       - name: Checkout Repository
