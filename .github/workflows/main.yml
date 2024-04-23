@@ -57,7 +57,7 @@ jobs:
 
       - name: Run TypeScript Linters
         run: |
-         npx eslint terms_glossary
+         npx eslint .
 
   javascript-tests:
     name: JavaScript Tests
@@ -79,5 +79,7 @@ jobs:
 
       - name: Run JavaScript Linters
         run: |
-          npx eslint java-script/async_version
-          npx eslint java-script/sync_version
+          cd java-script/async_version
+          npx eslint .
+          cd java-script/sync_version
+          npx eslint .
