@@ -23,7 +23,7 @@ jobs:
         run: |
               cd python/sync_version/
               pip install poetry
-              poetry check
+              poetry install
               poetry run isort --check-only server
               poetry run black --check server
               poetry run flake8 server
@@ -32,7 +32,7 @@ jobs:
         run: |
               cd python/async_version/
               pip install poetry
-              poetry check
+              poetry install
               poetry run isort --check-only server
               poetry run black --check server
               poetry run flake8 server
