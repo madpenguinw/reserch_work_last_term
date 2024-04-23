@@ -52,7 +52,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-              npm install --prefix terms_glossary
+              yarn install terms_glossary
 
       - name: Run TypeScript Linters
         run: |
