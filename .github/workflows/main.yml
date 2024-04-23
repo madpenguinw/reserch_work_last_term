@@ -50,15 +50,11 @@ jobs:
         with:
           node-version: '21.7.3'
 
-      - name: Install dependencies
+      - name: Install dependencies & Run TypeScript Linters
         run: |
               cd terms_glossary
               yarn
-
-      - name: Run TypeScript Linters
-        run: |
-         cd terms_glossary
-         npx eslint .
+              npx eslint .   
 
   javascript-tests:
     name: JavaScript Tests
