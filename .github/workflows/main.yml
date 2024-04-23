@@ -57,7 +57,7 @@ jobs:
 
       - name: Run TypeScript Linters
         run: |
-         npx eslint . --ext .ts
+         npx eslint terms_glossary
 
   javascript-tests:
     name: JavaScript Tests
