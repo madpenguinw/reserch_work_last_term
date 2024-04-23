@@ -18,31 +18,24 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.12'
-      
-      - name: List Files in Directory
-        run: ls -R python
 
       - name: Poetry Check Sync Python
         run: |
               cd python/sync_version/
               pip install poetry
               poetry check
+              poetry run isort --check-only server
+              poetry run black --check server
+              poetry run flake8 server
 
-      - name: Poetry Check Async Python
+      - name: Poetry Check And Run Linters Async Python
         run: |
               cd python/async_version/
               pip install poetry
               poetry check
-
-      - name: Python Linters
-        run: |
-          poetry run isort --check-only python/async_version
-          poetry run black --check python/async_version
-          poetry run flake8 python/async_version
-
-          poetry run isort --check-only python/sync_version
-          poetry run black --check python/sync_version
-          poetry run flake8 python/sync_version
+              poetry run isort --check-only server
+              poetry run black --check server
+              poetry run flake8 server
 
   typescript-tests:
     name: TypeScript Tests
