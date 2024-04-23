@@ -6,6 +6,15 @@ on:
       - main
 
 jobs:
+  show-changes:
+    name: Show Changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Print Event JSON
+        run: cat $GITHUB_EVENT_PATH
   python-tests:
     name: Python Tests
     runs-on: ubuntu-latest

@@ -25,4 +25,4 @@ async def run_app():
     site = web.TCPSite(runner, host, port)
     await site.start()
     custom_logger.info(f"Started server on {host}:{port}")
-    custom_logger.info("Check Python GitHub actions!")
+    custom_logger.info("Check Python GitHub actions!!")
