@@ -23,7 +23,7 @@ services:
         limits:
           memory: 1G
           cpus: '1'
-  sync_js:
+  sync_java_script:
     build:
       context: ./java-script/sync_version
       dockerfile: Dockerfile
@@ -34,7 +34,7 @@ services:
         limits:
           memory: 1G
           cpus: '1'
-  async_js:
+  async_java_script:
     build:
       context: ./java-script/async_version
       dockerfile: Dockerfile
