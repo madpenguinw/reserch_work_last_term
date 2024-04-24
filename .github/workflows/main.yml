@@ -17,25 +17,25 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12.0'
+          python-version: "3.12.0"
 
       - name: Poetry Check Sync Python
         run: |
-              cd python/sync_version/
-              pip install poetry
-              poetry install
-              poetry run isort --check-only server
-              poetry run black --check server
-              poetry run flake8 server
+          cd python/sync_version/
+          pip install poetry
+          poetry install
+          poetry run isort --check-only server
+          poetry run black --check server
+          poetry run flake8 server
 
       - name: Poetry Check And Run Linters Async Python
         run: |
-              cd python/async_version/
-              pip install poetry
-              poetry install
-              poetry run isort --check-only server
-              poetry run black --check server
-              poetry run flake8 server
+          cd python/async_version/
+          pip install poetry
+          poetry install
+          poetry run isort --check-only server
+          poetry run black --check server
+          poetry run flake8 server
 
   typescript-tests:
     name: TypeScript Tests
@@ -48,13 +48,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '21.7.3'
+          node-version: "21.7.3"
 
       - name: Install dependencies & Run TypeScript Linters
         run: |
-              cd terms_glossary
-              yarn
-              npx eslint .   
+          cd terms_glossary
+          yarn
+          npx eslint .
 
   javascript-tests:
     name: JavaScript Tests
@@ -67,7 +67,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '21.7.3'
+          node-version: "21.7.3"
 
       - name: Install JavaScript dependencies
         run: |
@@ -82,45 +82,29 @@ jobs:
           cd sync_version/
           npx eslint .
   
-  build_and_push_to_docker_hub:
-    name: Push Docker images to Docker Hub
+  pushing_images:
+    name: Pushing Images
     runs-on: ubuntu-latest
-    needs: [python-tests, typescript-tests, javascript-tests]
+
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-  
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-  
-      - name: Login to Docker
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_LOGIN }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-  
-      - name: Build and push Python Docker images
-        uses: docker/build-push-action@v2
-        with:
-          context: python/
-          push: true
-          tags: |
-            research_work-sync_python:latest
-            research_work-async_python:latest
-  
-      - name: Build and push JavaScript Docker images
-        uses: docker/build-push-action@v2
-        with:
-          context: java-script/
-          push: true
-          tags: |
-            research_work-sync_java_script:latest
-            research_work-async_java_script:latest
-  
-      - name: Build and push Terms Glossary Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: terms_glossary/
-          push: true
-          tags: research_work-terms_glossary:latest
-          
+      - name: Build and Push Docker Image - Python
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+          docker build -t research_work-sync_python:latest python/sync_version/
+          docker build -t research_work-async_python:latest python/async_version/
+          docker push research_work-sync_python:latest
+          docker push research_work-async_python:latest
+
+      - name: Build and Push Docker Image - JavaScript
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+          docker build -t research_work-sync_java_script:latest java-script/sync_version/
+          docker build -t research_work-async_java_script:latest java-script/async_version/
+          docker push research_work-sync_java_script:latest
+          docker push research_work-async_java_script:latest
+
+      - name: Build and Push Docker Image - Terms Glossary
+        run: |
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_LOGIN }} --password-stdin
+          docker build -t research_work-terms_glossary:latest terms_glossary/
+          docker push research_work-terms_glossary:latest
