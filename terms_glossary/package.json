@@ -40,7 +40,7 @@
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.14",
     "cssnano": "^6.0.1",
-    "eslint": "^9.1.1",
+    "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.34.1",
     "globals": "^15.0.0",
     "postcss": "^8.4.27",

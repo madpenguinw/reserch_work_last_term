@@ -54,7 +54,7 @@ jobs:
         run: |
               cd terms_glossary
               yarn
-              eslint .   
+              npx eslint .   
 
   javascript-tests:
     name: JavaScript Tests
