@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { PaperClipIcon } from '@heroicons/react/24/solid'
 import { ChangeEvent, FC, useEffect, useId, useState } from 'react'
 import { useRef } from 'react'
@@ -62,7 +61,6 @@ const FileUploader: FC<Props> = ({
     console.log(file)
 
     // reader.current.readAsDataURL(file)
-    // eslint-disable-next-line unicorn/prefer-blob-reading-methods
     reader.current.readAsText(file)
 
     onUpload?.(data)
