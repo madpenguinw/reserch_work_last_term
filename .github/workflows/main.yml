@@ -113,7 +113,7 @@ jobs:
           context: python/sync_version/
           push: true
           tags: |
-            research_work-sync_python:latest
+            ${{ secrets.DOCKER_USERNAME }}/research_work-sync_python:latest
 
       - name: Build and push Async JavaScript Docker images
         uses: docker/build-push-action@v2
@@ -121,7 +121,7 @@ jobs:
           context: java-script/async_version/
           push: true
           tags: |
-            research_work-async_java_script:latest
+            ${{ secrets.DOCKER_USERNAME }}/research_work-async_java_script:latest
 
       - name: Build and push Sync JavaScript Docker images
         uses: docker/build-push-action@v2
@@ -129,11 +129,11 @@ jobs:
           context: java-script/sync_version/
           push: true
           tags: |
-            research_work-sync_java_script:latest
+            ${{ secrets.DOCKER_USERNAME }}/research_work-sync_java_script:latest
 
       - name: Build and push Terms Glossary Docker image
         uses: docker/build-push-action@v2
         with:
           context: terms_glossary/
           push: true
-          tags: research_work-terms_glossary:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/research_work-terms_glossary:latest
