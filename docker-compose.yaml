@@ -2,55 +2,40 @@ version: '3.8'
 
 services:
   sync_python:
-    build:
-      context: ./python/sync_version
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+    image: penguinw/research_work-sync_python:latest
+    restart: always
     deploy:
       resources:
         limits:
           memory: 1G
           cpus: '1'
   async_python:
-    build:
-      context: ./python/async_version
-      dockerfile: Dockerfile
-    ports:
-      - "8001:8001"
+    image: penguinw/research_work-async_python:latest
+    restart: always
     deploy:
       resources:
         limits:
           memory: 1G
           cpus: '1'
   sync_java_script:
-    build:
-      context: ./java-script/sync_version
-      dockerfile: Dockerfile
-    ports:
-      - "9000:9000"
+    image: penguinw/research_work-sync_java_script:latest
+    restart: always
     deploy:
       resources:
         limits:
           memory: 1G
           cpus: '1'
   async_java_script:
-    build:
-      context: ./java-script/async_version
-      dockerfile: Dockerfile
-    ports:
-      - "9001:9001"
+    mage: penguinw/research_work-async_java_script:latest
+    restart: always
     deploy:
       resources:
         limits:
           memory: 1G
           cpus: '1'
   terms_glossary:
-    build:
-      context: ./terms_glossary
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+    image: penguinw/research_work-terms_glossary:latest
+    restart: always
     deploy:
       resources:
         limits:
