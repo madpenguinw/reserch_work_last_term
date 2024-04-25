@@ -149,7 +149,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            echo "$(<docker-compose.yaml)" | ssh ${{ secrets.USER }}@${{ secrets.HOST }} 'cat > /path/to/docker-compose.yaml'
+            echo "$(<docker-compose.yaml)" | ssh ${{ secrets.USER }}@${{ secrets.HOST }} 'cat > /app/docker-compose.yaml'
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
