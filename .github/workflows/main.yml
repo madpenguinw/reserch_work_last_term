@@ -157,7 +157,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd app/
+            cd /home/penguinw/app/
             sudo docker pull penguinw/research_work-sync_python:latest
             sudo docker pull penguinw/research_work-async_python:latest
             sudo docker pull penguinw/research_work-sync_java_script:latest
