@@ -149,7 +149,7 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            curl -sSL "https://github.com/madpenguinw/reserch_work_third_term/blob/main/docker-compose.yaml" | cat > /home/penguinw/app/docker-compose.yaml
+            curl -sSL "https://github.com/madpenguinw/reserch_work_third_term/docker-compose.yaml" | cat > /home/penguinw/app/docker-compose.yaml
         # echo "$(<docker-compose.yaml)" | cat > /home/penguinw/app/docker-compose.yaml
       # - name: executing remote ssh commands to deploy
       #   uses: appleboy/ssh-action@master
