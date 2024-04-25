@@ -26,7 +26,7 @@ services:
           memory: 1G
           cpus: '1'
   async_java_script:
-    mage: penguinw/research_work-async_java_script:latest
+    image: penguinw/research_work-async_java_script:latest
     restart: always
     deploy:
       resources:
