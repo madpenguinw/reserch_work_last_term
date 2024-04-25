@@ -11,4 +11,4 @@ RUN yarn build
 
 EXPOSE 3000
 
-CMD ["yarn", "run", "preview"]
+ENTRYPOINT yarn run preview
