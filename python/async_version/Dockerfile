@@ -13,4 +13,4 @@ ENV PORT=8001
 
 EXPOSE $PORT
 
-ENTRYPOINT python -m server --host=0.0.0.0
+ENTRYPOINT python -m server --host=0.0.0.0 --bind 0.0.0.0:8000
