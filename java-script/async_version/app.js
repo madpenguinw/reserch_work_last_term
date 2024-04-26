@@ -14,10 +14,15 @@ http.createServer((request, response) => {
     response.writeHead(200);
 
     const SubsetProcessor = new Processor(parsedUrl.query.sum, inputData);
-    SubsetProcessor.on('end', () => {
+    SubsetProcessor.on('end', (matchCount) => {
       // Используем console.timeEnd для окончания отсчета времени
       console.timeEnd('Request Processing Time');
-      response.end(JSON.stringify(SubsetProcessor.matchCount) + '\n');
+      const responseData = {
+        Service: "JavaScript Async Version",
+        Result: matchCount,
+        Time: `${(process.hrtime()[0] * 1000 + process.hrtime()[1] / 1000000).toFixed(3)}ms`
+      };
+      response.end(JSON.stringify(responseData) + '\n');
     });
     
     SubsetProcessor.initiate();

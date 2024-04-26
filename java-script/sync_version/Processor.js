@@ -21,16 +21,14 @@ class Processor extends EventEmitter {
     const subsetSum = subset.reduce((prev, item) => (prev + item), 0);
     if(subsetSum == this.targetSum) {
        this.matchCount++;
-    }
-    if(subsetSum == this.targetSum) {
-      this.emit('match', subset);
+       this.emit('match', subset);
     }
  }
 
  initiate() {
    this._generateSubsets(this.dataSet, []);
    console.log("Subset count: " + this.matchCount);
-   this.emit('end');
+   this.emit('end', this.matchCount);
  }
 }
 

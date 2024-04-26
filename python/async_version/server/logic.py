@@ -30,9 +30,13 @@ class SubsetSumHandler:
             self.executor, self.solve_subset_sum, query_data, sum_value
         )
 
-        response_data = {"result": result}
         end_time = round(time.time() * 1000, 3)
         delta_time = round(end_time - start_time, 3)
+        response_data = {
+            "Service": "Python Async Version",
+            "Result": result,
+            "Time": f"{delta_time}ms"
+        }
         custom_logger.info(f"Request Processing Time: {delta_time}ms")
 
         return web.json_response(response_data)
