@@ -9,13 +9,6 @@ import { HomePage } from '@/pages/HomePage'
 import { MindMapView } from '@/pages/MindMapView'
 import { Root } from '@/Root'
 
-const PingComponent = () => {
-  return (
-    <div>
-      Successful!
-    </div>
-  )
-}
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +16,6 @@ const router = createBrowserRouter(
       <Route element={<LayoutDefault />}>
         <Route index element={<HomePage />} />
         <Route path="/mindmap" element={<MindMapView />} />
-        <Route path="/ping/" element={<PingComponent />} />
       </Route>
     </Route>
   )
