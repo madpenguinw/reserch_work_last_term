@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        canvas {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Task</h2>
+        <form id="graphForm">
+            <label for="task">Given:</label><br>
+            <textarea id="task" name="task" rows="4" cols="50" readonly>Selection of subsets with zero sum: for a given set of integers, all possible combinations of its elements whose sum equals a given arbitrary integer are required.</textarea><br><br>
+            
+            <label>Service:</label><br>
+            <input type="radio" id="pythonAsync" name="service" value="python_async_version" required>
+            <label for="pythonAsync">Python Async Version</label><br>
+            
+            <input type="radio" id="pythonSync" name="service" value="python_sync_version">
+            <label for="pythonSync">Python Sync Version</label><br>
+            
+            <input type="radio" id="jsAsync" name="service" value="javascript_async_version">
+            <label for="jsAsync">JavaScript Async Version</label><br>
+            
+            <input type="radio" id="jsSync" name="service" value="javascript_sync_version">
+            <label for="jsSync">JavaScript Sync Version</label><br><br>
+            
+            <label for="paramCount">Number of Parameters:</label>
+            <input type="number" id="paramCount" name="paramCount" min="1" max="30" required><br><br>
+            
+            <button type="submit">Send Request</button>
+        </form>
+        <br><br>
+        <label for="result">Result:</label>
+        <input type="text" id="result" name="result" readonly>
+        <br><br>
+        <label for="time">Time in milliseconds:</label>
+        <input type="text" id="time" name="time" readonly>
+    </div>
+
+    <div>
+        <h2>Graph</h2>
+        <canvas id="myChart" width="800" height="400"></canvas>
+        <legend>
+            <span style="color:red;">Python Async Version</span>
+            <span style="color:black;">Python Sync Version</span>
+            <span style="color:blue;">JavaScript Async Version</span>
+            <span style="color:green;">JavaScript Sync Version</span>
+        </legend>
+    </div>
+
+    <script>
+        document.getElementById('graphForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            const formData = new FormData(this);
+            const task = formData.get('task');
+            const service = formData.get('service');
+            const paramCount = formData.get('paramCount');
+        
+            const baseUrl = 'https://lmikhailsokolovl.zapto.org/';
+            let url;
+            switch (service) {
+                case 'python_async_version':
+                    url = baseUrl + 'python/async_version/getSubsets?data=' + generateRandomArray(paramCount) + '&sum=0';
+                    break;
+                case 'python_sync_version':
+                    url = baseUrl + 'python/sync_version/getSubsets?data=' + generateRandomArray(paramCount) + '&sum=0';
+                    break;
+                case 'javascript_async_version':
+                    url = baseUrl + 'java-script/async_version/getSubsets?data=' + generateRandomArray(paramCount) + '&sum=0';
+                    break;
+                case 'javascript_sync_version':
+                    url = baseUrl + 'java-script/sync_version/getSubsets?data=' + generateRandomArray(paramCount) + '&sum=0';
+                    break;
+                default:
+                    return;
+            }
+        
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').value = data.Result;
+                    document.getElementById('time').value = data.Time_ms;
+                    updateChart(parseInt(paramCount), data.Time_ms, service);
+                })
+                .catch(error => console.error('Error:', error));
+        });
+        
+        function generateRandomArray(count) {
+            const randomArray = [];
+            for (let i = 0; i < count; i++) {
+                randomArray.push(Math.floor(Math.random() * 61) - 30);
+            }
+            return JSON.stringify(randomArray);
+        }
+        
+
+        let chartData = {
+            datasets: []
+        };
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'scatter',
+            data: chartData,
+            options: {
+                scales: {
+                    x: {
+                        min: 0,
+                        max: 300,
+                        ticks: {
+                            stepSize: 20
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: 30
+                    }
+                }
+            }
+        });
+
+        function updateChart(paramCount, time, service) {
+            let color;
+            switch (service) {
+                case 'python_async_version':
+                    color = 'red';
+                    break;
+                case 'python_sync_version':
+                    color = 'black';
+                    break;
+                case 'javascript_async_version':
+                    color = 'blue';
+                    break;
+                case 'javascript_sync_version':
+                    color = 'green';
+                    break;
+                default:
+                    return;
+            }
+
+            if (!chartData.datasets.find(dataset => dataset.label === service)) {
+                chartData.datasets.push({
+                    label: service,
+                    data: [],
+                    backgroundColor: color
+                });
+            }
+
+            chartData.datasets.find(dataset => dataset.label === service).data.push({x: time, y: paramCount});
+            myChart.update();
+        }
+    </script>
+</body>
+</html>

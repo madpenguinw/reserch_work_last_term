@@ -151,6 +151,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             curl -sSL "https://raw.githubusercontent.com/madpenguinw/reserch_work_third_term/main/docker-compose.yaml" | cat > /home/penguinw/app/docker-compose.yaml
+            curl -sSL "https://raw.githubusercontent.com/madpenguinw/reserch_work_third_term/main/index.html" | cat > /home/penguinw/app/index.html
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
