@@ -53,8 +53,6 @@ services:
     restart: always
     ports:
       - "3000:3000"
-    volumes:
-      - static_files:/usr/src/app/dist
     deploy:
       resources:
         limits:
