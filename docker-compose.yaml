@@ -1,5 +1,8 @@
 version: '3.3'
 
+volumes:
+  static_files:
+
 services:
   sync_python:
     image: penguinw/research_work-sync_python:latest
@@ -11,6 +14,7 @@ services:
         limits:
           memory: 1G
           cpus: '1'
+
   async_python:
     image: penguinw/research_work-async_python:latest
     restart: always
@@ -21,6 +25,7 @@ services:
         limits:
           memory: 1G
           cpus: '1'
+
   sync_java_script:
     image: penguinw/research_work-sync_java_script:latest
     restart: always
@@ -31,6 +36,7 @@ services:
         limits:
           memory: 1G
           cpus: '1'
+
   async_java_script:
     image: penguinw/research_work-async_java_script:latest
     restart: always
@@ -41,11 +47,14 @@ services:
         limits:
           memory: 1G
           cpus: '1'
+
   terms_glossary:
     image: penguinw/research_work-terms_glossary:latest
     restart: always
     ports:
       - "3000:3000"
+    volumes:
+      - static_files:/usr/src/app/dist
     deploy:
       resources:
         limits:
