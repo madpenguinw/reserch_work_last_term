@@ -51,9 +51,6 @@ class SubsetSumHandler(BaseHTTPRequestHandler):
 
             # Отправляем результат в формате JSON
             self.wfile.write(json.dumps(response_data).encode())
-
-            # Отправляем результат в формате JSON
-            self.wfile.write(json.dumps(result).encode())
         else:
             self.send_response(HTTPStatus.OK)
             self.send_header("Content-type", "text/plain")
