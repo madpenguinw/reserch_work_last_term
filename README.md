@@ -8,7 +8,7 @@
 
 1. Склонируйте репозиторий:
     ```bash
-    git clone https://github.com/madpenguinw/Goss_Practice_Frontend
+    git clone https://github.com/madpenguinw/reserch_work_last_term.git
     ```
 
 2. Запустите Docker:
