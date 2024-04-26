@@ -12,10 +12,10 @@ import { Root } from '@/Root'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Root />} errorElement={<ErrorPage />}>
+    <Route path="/terms_glossary/" element={<Root />} errorElement={<ErrorPage />}>
       <Route element={<LayoutDefault />}>
         <Route index element={<HomePage />} />
-        <Route path="/mindmap" element={<MindMapView />} />
+        <Route path="/terms_glossary/mindmap" element={<MindMapView />} />
       </Route>
     </Route>
   )
