@@ -6,81 +6,81 @@ on:
       - main
 
 jobs:
-  # python-tests:
-  #   name: Python Tests
-  #   runs-on: ubuntu-latest
+  python-tests:
+    name: Python Tests
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v2
-  #       with:
-  #         python-version: "3.12.0"
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.12.0"
 
-  #     - name: Poetry Check Sync Python
-  #       run: |
-  #         cd python/sync_version/
-  #         pip install poetry
-  #         poetry install
-  #         poetry run isort --check-only server
-  #         poetry run black --check server
-  #         poetry run flake8 server
+      - name: Poetry Check Sync Python
+        run: |
+          cd python/sync_version/
+          pip install poetry
+          poetry install
+          poetry run isort --check-only server
+          poetry run black --check server
+          poetry run flake8 server
 
-  #     - name: Poetry Check And Run Linters Async Python
-  #       run: |
-  #         cd python/async_version/
-  #         pip install poetry
-  #         poetry install
-  #         poetry run isort --check-only server
-  #         poetry run black --check server
-  #         poetry run flake8 server
+      - name: Poetry Check And Run Linters Async Python
+        run: |
+          cd python/async_version/
+          pip install poetry
+          poetry install
+          poetry run isort --check-only server
+          poetry run black --check server
+          poetry run flake8 server
 
-  # typescript-tests:
-  #   name: TypeScript Tests
-  #   runs-on: ubuntu-latest
+  typescript-tests:
+    name: TypeScript Tests
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: "21.7.3"
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "21.7.3"
 
-  #     - name: Install dependencies & Run TypeScript Linters
-  #       run: |
-  #         cd terms_glossary
-  #         yarn
-  #         npx eslint .
+      - name: Install dependencies & Run TypeScript Linters
+        run: |
+          cd terms_glossary
+          yarn
+          npx eslint .
 
-  # javascript-tests:
-  #   name: JavaScript Tests
-  #   runs-on: ubuntu-latest
+  javascript-tests:
+    name: JavaScript Tests
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout Repository
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: "21.7.3"
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "21.7.3"
 
-  #     - name: Install JavaScript dependencies
-  #       run: |
-  #         npm install --prefix java-script/async_version
-  #         npm install --prefix java-script/sync_version
+      - name: Install JavaScript dependencies
+        run: |
+          npm install --prefix java-script/async_version
+          npm install --prefix java-script/sync_version
 
-  #     - name: Run JavaScript Linters
-  #       run: |
-  #         cd java-script/async_version
-  #         npx eslint .
-  #         cd ..
-  #         cd sync_version/
-  #         npx eslint .
+      - name: Run JavaScript Linters
+        run: |
+          cd java-script/async_version
+          npx eslint .
+          cd ..
+          cd sync_version/
+          npx eslint .
 
 
   build_and_push_to_docker_hub:
