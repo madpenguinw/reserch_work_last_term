@@ -35,7 +35,7 @@ class SubsetSumHandler:
         response_data = {
             "Service": "Python Async Version",
             "Result": result,
-            "Time": f"{delta_time}ms"
+            "Time": f"{delta_time}ms",
         }
         custom_logger.info(f"Request Processing Time: {delta_time}ms")
 

@@ -41,11 +41,12 @@ class SubsetSumHandler(BaseHTTPRequestHandler):
             # Решаем задачу Subset Sum
             result = self.solve_subset_sum(query_data, sum_value)
 
-            # Формируем словарь с результатом, временем выполнения и информацией о сервисе
+            # Формируем словарь с результатом, временем выполнения
+            # и информацией о сервисе
             response_data = {
                 "Service": "Python Sync Version",
                 "Result": result,
-                "Time": f"{round(time.time() * 1000 - start_time, 3)}ms"
+                "Time": f"{round(time.time() * 1000 - start_time, 3)}ms",
             }
 
             # Отправляем результат в формате JSON
