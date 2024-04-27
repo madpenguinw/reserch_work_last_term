@@ -14,13 +14,11 @@ http.createServer((request, response) => {
 
     const SubsetProcessor = new Processor(parsedUrl.query.sum, inputData);
     SubsetProcessor.on('end', (matchCount) => {
-      const endTime = Date.now();
-      const deltaTime = endTime - startTime;
 
       const responseData = {
         Service: "JavaScript Async Version",
         Result: matchCount,
-        Time: `${deltaTime.toFixed(3)}ms`
+        Time_ms: Date.now() - startTime,
       };
       response.end(JSON.stringify(responseData) + '\n');
     });
