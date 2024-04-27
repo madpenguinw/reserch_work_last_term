@@ -16,7 +16,7 @@ class SubsetSumHandler(BaseHTTPRequestHandler):
         path = parsed_url[0]
 
         # Используем time.time() для начала отсчета времени
-        start_time = round(time.time() * 1000, 3)
+        start_time = datetime.now()
 
         if path == "/getSubsets":
             self.send_response(HTTPStatus.OK)
