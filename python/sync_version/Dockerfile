@@ -14,3 +14,4 @@ ENV PORT=8000
 EXPOSE $PORT
 
 ENTRYPOINT python -m server --host=0.0.0.0
+
