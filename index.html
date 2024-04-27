@@ -6,11 +6,21 @@
     <title>Graph</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
         canvas {
             width: 100%;
-            max-width: 2000px;
+            max-width: 2000px; /* Ширина графика */
             height: auto;
-            max-height: 500px;
+            max-height: 500px; /* Высота графика */
+            margin-bottom: 120px; /* Отступ снизу для разделения графика и легенды */
+        }
+        .legend-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Расстояние между элементами легенды */
+            margin-bottom: -40px; /* Отступ снизу для разделения графика и легенды */
         }
     </style>
 </head>
@@ -49,13 +59,17 @@
 
     <div>
         <h2>Graph</h2>
-        <canvas id="myChart" width="800" height="400"></canvas>
-        <legend>
-            <span style="color:red;">Python Async Version</span>
-            <span style="color:black;">Python Sync Version</span>
-            <span style="color:blue;">JavaScript Async Version</span>
-            <span style="color:green;">JavaScript Sync Version</span>
-        </legend>
+        <div style="position: relative;">
+            <canvas id="myChart"></canvas>
+            <div class="legend-container" style="position: absolute; bottom: 0; left: 40%; transform: translateX(-50%);">
+                <legend>
+                    <span style="color:red;">Python Async Version</span>
+                    <span style="color:black;">Python Sync Version</span>
+                    <span style="color:blue;">JavaScript Async Version</span>
+                    <span style="color:green;">JavaScript Sync Version</span>
+                </legend>
+            </div>
+        </div>
     </div>
 
     <script>
