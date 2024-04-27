@@ -107,7 +107,7 @@
         let chartData = {
             datasets: []
         };
-        
+
         const ctx = document.getElementById('myChart').getContext('2d');
         const myChart = new Chart(ctx, {
             type: 'scatter',
@@ -116,7 +116,7 @@
                 scales: {
                     x: {
                         min: 0,
-                        max: 500,
+                        max: 300,
                         ticks: {
                             stepSize: 20
                         }
@@ -153,10 +153,13 @@
                     label: service,
                     data: [],
                     backgroundColor: color,
-                    showLine: true // Добавляем параметр showLine для отображения линии
+                    showLine: true
                 });
             }
 
             chartData.datasets.find(dataset => dataset.label === service).data.push({x: time, y: paramCount});
             myChart.update();
         }
+    </script>
+</body>
+</html>
