@@ -1,8 +1,5 @@
 version: '3.3'
 
-volumes:
-  static_files:
-
 services:
   sync_python:
     image: penguinw/research_work-sync_python:latest
