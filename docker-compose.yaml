@@ -6,7 +6,7 @@ volumes:
 services:
   sync_python:
     image: penguinw/research_work-sync_python:latest
-    restart: always
+    restart: on-failure
     ports:
       - "8000:8000"
     deploy:
@@ -17,7 +17,7 @@ services:
 
   async_python:
     image: penguinw/research_work-async_python:latest
-    restart: always
+    restart: on-failure
     ports:
       - "8001:8001"
     deploy:
@@ -28,7 +28,7 @@ services:
 
   sync_java_script:
     image: penguinw/research_work-sync_java_script:latest
-    restart: always
+    restart: on-failure
     ports:
       - "9000:9000"
     deploy:
@@ -39,7 +39,7 @@ services:
 
   async_java_script:
     image: penguinw/research_work-async_java_script:latest
-    restart: always
+    restart: on-failure
     ports:
       - "9001:9001"
     deploy:
@@ -50,7 +50,7 @@ services:
 
   terms_glossary:
     image: penguinw/research_work-terms_glossary:latest
-    restart: always
+    restart: on-failure
     ports:
       - "3000:3000"
     deploy:
