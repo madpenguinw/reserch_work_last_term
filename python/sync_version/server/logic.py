@@ -1,5 +1,6 @@
 import json
 import time
+from datetime import datetime
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler
 from itertools import chain, combinations
@@ -46,8 +47,11 @@ class SubsetSumHandler(BaseHTTPRequestHandler):
             response_data = {
                 "Service": "Python Sync Version",
                 "Result": result,
-                "Time": f"{round(time.time() * 1000 - start_time, 3)}ms",
+                "Time_ms": int(
+                    (datetime.now() - start_time).total_seconds() * 1000
+                ),
             }
+            custom_logger.info(response_data)
 
             # Отправляем результат в формате JSON
             self.wfile.write(json.dumps(response_data).encode())
@@ -56,11 +60,6 @@ class SubsetSumHandler(BaseHTTPRequestHandler):
             self.send_header("Content-type", "text/plain")
             self.end_headers()
             self.wfile.write("Successful!".encode())
-
-        # Используем time.time() для окончания отсчета времени
-        end_time = round(time.time() * 1000, 3)
-        delta_time = round(end_time - start_time, 3)
-        custom_logger.info(f"Request Processing Time: {delta_time}ms")
 
     def solve_subset_sum(self, data, target_sum):
         # Получаем все подмножества множества данных

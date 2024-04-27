@@ -1,7 +1,7 @@
 import asyncio
 import json
-import time
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 from itertools import chain, combinations
 
 from aiohttp import web
@@ -15,7 +15,7 @@ class SubsetSumHandler:
         self.executor = ThreadPoolExecutor(max_workers=10)
 
     async def get_subsets_handler(self, request):
-        start_time = round(time.time() * 1000, 3)
+        start_time = datetime.now()
 
         try:
             query_params = request.rel_url.query
@@ -30,14 +30,14 @@ class SubsetSumHandler:
             self.executor, self.solve_subset_sum, query_data, sum_value
         )
 
-        end_time = round(time.time() * 1000, 3)
-        delta_time = round(end_time - start_time, 3)
         response_data = {
             "Service": "Python Async Version",
             "Result": result,
-            "Time": f"{delta_time}ms",
+            "Time_ms": int(
+                (datetime.now() - start_time).total_seconds() * 1000
+            ),
         }
-        custom_logger.info(f"Request Processing Time: {delta_time}ms")
+        custom_logger.info(response_data)
 
         return web.json_response(response_data)
 
