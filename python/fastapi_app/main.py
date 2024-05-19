@@ -61,12 +61,12 @@ class MongoUser(Document):
 
 
 # Endpoints
-@app.get("/empty")
+@app.get("/empty", tags=["Base"])
 async def get_empty():
     return []
 
 
-@app.get("/readfile/{filename}")
+@app.get("/readfile/{filename}", tags=["Base"])
 async def read_file(filename: str):
     try:
         with open(f"./{filename}", "r") as f:
@@ -76,7 +76,7 @@ async def read_file(filename: str):
         raise HTTPException(status_code=404, detail="File not found")
 
 
-@app.get("/get_users_odm/{count}")
+@app.get("/mongo/get_users_odm/{count}", tags=["Mongo"])
 async def get_users_odm(count: int):
     employees = (
         MongoUser.objects.limit(count) if count else MongoUser.objects.all()
@@ -94,7 +94,7 @@ async def get_users_odm(count: int):
     return employees_data
 
 
-@app.get("/get_users_driver/{count}")
+@app.get("/mongo/get_users/{count}", tags=["Mongo"])
 async def get_users_driver(count: int):
     users = list(mongo_users_collection.find().limit(count))
     for user in users:
@@ -102,7 +102,7 @@ async def get_users_driver(count: int):
     return users
 
 
-@app.get("/get_users_orm/{count}")
+@app.get("/postgres/get_users_orm/{count}", tags=["Postgres"])
 async def get_users_orm(count: int):
     async with AsyncSessionLocal() as session:
         query = select(User).limit(count)
@@ -113,7 +113,7 @@ async def get_users_orm(count: int):
     return user_dicts
 
 
-@app.get("/get_users_orm_text/{count}")
+@app.get("/postgres/get_users_orm_text/{count}", tags=["Postgres"])
 async def get_users_orm_text(count: int):
     async with AsyncSessionLocal() as session:
         result = await session.execute(
@@ -125,7 +125,7 @@ async def get_users_orm_text(count: int):
     return user_dicts
 
 
-@app.get("/get_users_sql/{count}")
+@app.get("/postgres/get_users/{count}", tags=["Postgres"])
 async def get_users_sql(count: int):
     with psycopg2.connect(PG_CONN_STRING) as conn:
         with conn.cursor() as cur:
@@ -136,7 +136,7 @@ async def get_users_sql(count: int):
     return result
 
 
-@app.post("/populate_mongo")
+@app.post("/mongo/populate", tags=["Upload to DB"])
 async def populate_mongo():
     with open("data.json", "r") as f:
         data = json.load(f)
@@ -144,7 +144,7 @@ async def populate_mongo():
     return {"status": "success"}
 
 
-@app.post("/populate_mongo_odm")
+@app.post("/mongo/populate_odm", tags=["Upload to DB"])
 async def populate_mongo_odm():
     with open("data.json", "r") as f:
         data = json.load(f)
@@ -153,7 +153,7 @@ async def populate_mongo_odm():
     return {"status": "success"}
 
 
-@app.post("/populate_postgres")
+@app.post("/postgres/populate_orm", tags=["Upload to DB"])
 async def populate_postgres():
     with open("data.json", "r") as f:
         data = json.load(f)
@@ -163,7 +163,7 @@ async def populate_postgres():
     return {"status": "success"}
 
 
-@app.post("/populate_postgres_sql")
+@app.post("/postgres/populate", tags=["Upload to DB"])
 async def populate_postgres_sql():
     with open("data.json", "r") as f:
         data = json.load(f)

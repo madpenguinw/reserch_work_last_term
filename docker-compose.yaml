@@ -1,57 +1,87 @@
 version: '3.3'
 
 services:
-  sync_python:
-    image: penguinw/research_work-sync_python:latest
-    restart: always
-    ports:
-      - "8000:8000"
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-          cpus: '1'
+  # sync_python:
+  #   image: penguinw/research_work-sync_python:latest
+  #   restart: always
+  #   ports:
+  #     - "8000:8000"
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1G
+  #         cpus: '1'
 
-  async_python:
-    image: penguinw/research_work-async_python:latest
-    restart: always
-    ports:
-      - "8001:8001"
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-          cpus: '1'
+  # async_python:
+  #   image: penguinw/research_work-async_python:latest
+  #   restart: always
+  #   ports:
+  #     - "8001:8001"
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1G
+  #         cpus: '1'
 
-  sync_javascript:
-    image: penguinw/research_work-sync_javascript:latest
-    restart: always
-    ports:
-      - "9000:9000"
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-          cpus: '1'
+  # sync_javascript:
+  #   image: penguinw/research_work-sync_javascript:latest
+  #   restart: always
+  #   ports:
+  #     - "9000:9000"
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1G
+  #         cpus: '1'
 
-  async_javascript:
-    image: penguinw/research_work-async_javascript:latest
-    restart: always
-    ports:
-      - "9001:9001"
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-          cpus: '1'
+  # async_javascript:
+  #   image: penguinw/research_work-async_javascript:latest
+  #   restart: always
+  #   ports:
+  #     - "9001:9001"
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1G
+  #         cpus: '1'
 
-  terms_glossary:
-    image: penguinw/research_work-terms_glossary:latest
+  # terms_glossary:
+  #   image: penguinw/research_work-terms_glossary:latest
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         memory: 1G
+  #         cpus: '1'
+
+  postgres:
+    image: postgres:latest
     restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: VKR
     ports:
-      - "3000:3000"
-    deploy:
-      resources:
-        limits:
-          memory: 1G
-          cpus: '1'
+      - "1234:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 12345678
+      MONGO_INITDB_DATABASE: VKR
+    ports:
+      - "3456:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+
+volumes:
+  postgres_data:
+  mongo_data:
