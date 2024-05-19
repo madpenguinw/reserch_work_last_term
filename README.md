@@ -23,14 +23,14 @@
 ### Доступные сервисы:
 
 1. **JavaScript Sync Version**
-    - URL: [http://lmikhailsokolovl.zapto.org/java-script/sync_version](http://lmikhailsokolovl.zapto.org/java-script/sync_version)
+    - URL: [http://lmikhailsokolovl.zapto.org/javascript/sync_version](http://lmikhailsokolovl.zapto.org/javascript/sync_version)
     - **Тестовый запрос**:
-        - [https://lmikhailsokolovl.zapto.org/java-script/sync_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0](https://lmikhailsokolovl.zapto.org/java-script/sync_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0)
+        - [https://lmikhailsokolovl.zapto.org/javascript/sync_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0](https://lmikhailsokolovl.zapto.org/javascript/sync_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0)
 
 2. **JavaScript Async Version**
-    - URL: [http://lmikhailsokolovl.zapto.org/java-script/async_version](http://lmikhailsokolovl.zapto.org/java-script/async_version)
+    - URL: [http://lmikhailsokolovl.zapto.org/javascript/async_version](http://lmikhailsokolovl.zapto.org/javascript/async_version)
     - **Тестовый запрос**:
-        - [https://lmikhailsokolovl.zapto.org/java-script/async_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0](https://lmikhailsokolovl.zapto.org/java-script/async_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0)
+        - [https://lmikhailsokolovl.zapto.org/javascript/async_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0](https://lmikhailsokolovl.zapto.org/javascript/async_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0)
 
 3. **Python Sync Version**
     - URL: [http://lmikhailsokolovl.zapto.org/python/sync_version](http://lmikhailsokolovl.zapto.org/python/sync_version)

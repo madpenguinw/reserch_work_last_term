@@ -23,8 +23,8 @@ services:
           memory: 1G
           cpus: '1'
 
-  sync_java_script:
-    image: penguinw/research_work-sync_java_script:latest
+  sync_javascript:
+    image: penguinw/research_work-sync_javascript:latest
     restart: always
     ports:
       - "9000:9000"
@@ -34,8 +34,8 @@ services:
           memory: 1G
           cpus: '1'
 
-  async_java_script:
-    image: penguinw/research_work-async_java_script:latest
+  async_javascript:
+    image: penguinw/research_work-async_javascript:latest
     restart: always
     ports:
       - "9001:9001"

@@ -71,12 +71,12 @@ jobs:
 
       - name: Install JavaScript dependencies
         run: |
-          npm install --prefix java-script/async_version
-          npm install --prefix java-script/sync_version
+          npm install --prefix javascript/async_version
+          npm install --prefix javascript/sync_version
 
       - name: Run JavaScript Linters
         run: |
-          cd java-script/async_version
+          cd javascript/async_version
           npx eslint .
           cd ..
           cd sync_version/
@@ -120,18 +120,18 @@ jobs:
       - name: Build and push Async JavaScript Docker images
         uses: docker/build-push-action@v2
         with:
-          context: java-script/async_version/
+          context: javascript/async_version/
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/research_work-async_java_script:latest
+            ${{ secrets.DOCKER_USERNAME }}/research_work-async_javascript:latest
 
       - name: Build and push Sync JavaScript Docker images
         uses: docker/build-push-action@v2
         with:
-          context: java-script/sync_version/
+          context: javascript/sync_version/
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/research_work-sync_java_script:latest
+            ${{ secrets.DOCKER_USERNAME }}/research_work-sync_javascript:latest
 
       - name: Build and push Terms Glossary Docker image
         uses: docker/build-push-action@v2
@@ -164,8 +164,8 @@ jobs:
             cd /home/penguinw/app/
             sudo docker pull penguinw/research_work-sync_python:latest
             sudo docker pull penguinw/research_work-async_python:latest
-            sudo docker pull penguinw/research_work-sync_java_script:latest
-            sudo docker pull penguinw/research_work-async_java_script:latest
+            sudo docker pull penguinw/research_work-sync_javascript:latest
+            sudo docker pull penguinw/research_work-async_javascript:latest
             sudo docker pull penguinw/research_work-terms_glossary:latest
             sudo docker-compose down -v
             sudo docker system prune
