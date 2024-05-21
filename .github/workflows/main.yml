@@ -37,6 +37,15 @@ jobs:
           poetry run black --check server
           poetry run flake8 server
 
+      - name: Poetry Check And Run Linters FastAPI
+        run: |
+          cd python/fastapi_app/
+          pip install poetry
+          poetry install
+          poetry run isort --check-only server
+          poetry run black --check server
+          poetry run flake8 server
+
   typescript-tests:
     name: TypeScript Tests
     runs-on: ubuntu-latest
@@ -73,6 +82,7 @@ jobs:
         run: |
           npm install --prefix javascript/async_version
           npm install --prefix javascript/sync_version
+          npm install --prefix javascript/express_app
 
       - name: Run JavaScript Linters
         run: |
@@ -81,8 +91,9 @@ jobs:
           cd ..
           cd sync_version/
           npx eslint .
-
-
+          cd ..
+          cd express_app/
+          npx eslint .
 
   build_and_push_to_docker_hub:
     name: Push Docker images to Docker Hub
@@ -116,6 +127,14 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/research_work-sync_python:latest
+      
+      - name: Build and push FastAPI Docker images
+        uses: docker/build-push-action@v2
+        with:
+          context: python/fastapi_app/
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/research_work-fastapi_app:latest
 
       - name: Build and push Async JavaScript Docker images
         uses: docker/build-push-action@v2
@@ -132,6 +151,14 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/research_work-sync_javascript:latest
+
+      - name: Build and push Express Docker images
+        uses: docker/build-push-action@v2
+        with:
+          context: javascript/express_app/
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/research_work-express_app:latest
 
       - name: Build and push Terms Glossary Docker image
         uses: docker/build-push-action@v2

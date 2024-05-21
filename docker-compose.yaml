@@ -1,60 +1,82 @@
 version: '3.3'
 
 services:
-  # sync_python:
-  #   image: penguinw/research_work-sync_python:latest
-  #   restart: always
-  #   ports:
-  #     - "8000:8000"
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 1G
-  #         cpus: '1'
+  sync_python:
+    image: penguinw/research_work-sync_python:latest
+    restart: always
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
 
-  # async_python:
-  #   image: penguinw/research_work-async_python:latest
-  #   restart: always
-  #   ports:
-  #     - "8001:8001"
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 1G
-  #         cpus: '1'
+  async_python:
+    image: penguinw/research_work-async_python:latest
+    restart: always
+    ports:
+      - "8001:8001"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
 
-  # sync_javascript:
-  #   image: penguinw/research_work-sync_javascript:latest
-  #   restart: always
-  #   ports:
-  #     - "9000:9000"
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 1G
-  #         cpus: '1'
+  sync_javascript:
+    image: penguinw/research_work-sync_javascript:latest
+    restart: always
+    ports:
+      - "9000:9000"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
 
-  # async_javascript:
-  #   image: penguinw/research_work-async_javascript:latest
-  #   restart: always
-  #   ports:
-  #     - "9001:9001"
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 1G
-  #         cpus: '1'
+  async_javascript:
+    image: penguinw/research_work-async_javascript:latest
+    restart: always
+    ports:
+      - "9001:9001"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
 
-  # terms_glossary:
-  #   image: penguinw/research_work-terms_glossary:latest
-  #   restart: always
-  #   ports:
-  #     - "3000:3000"
-  #   deploy:
-  #     resources:
-  #       limits:
-  #         memory: 1G
-  #         cpus: '1'
+  terms_glossary:
+    image: penguinw/research_work-terms_glossary:latest
+    restart: always
+    ports:
+      - "3000:3000"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+
+  express_app:
+    image: penguinw/research_work-express_app:latest
+    restart: always
+    ports:
+      - "9002:9002"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
+
+  fastapi_app:
+    image: penguinw/research_work-fastapi_app:latest
+    restart: always
+    ports:
+      - "8002:8002"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '1'
 
   postgres:
     image: postgres:latest

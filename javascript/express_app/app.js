@@ -108,7 +108,7 @@ app.post('/postgres/populate', async (req, res) => {
   res.json({ status: 'success' });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 9002;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
