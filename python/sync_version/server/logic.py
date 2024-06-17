@@ -46,9 +46,7 @@ class SubsetSumHandler(BaseHTTPRequestHandler):
             response_data = {
                 "Service": "Python Sync Version",
                 "Result": result,
-                "Time_ms": int(
-                    (datetime.now() - start_time).total_seconds() * 1000
-                ),
+                "Time_ms": int((datetime.now() - start_time).total_seconds() * 1000),
             }
             custom_logger.info(response_data)
 
@@ -63,9 +61,7 @@ class SubsetSumHandler(BaseHTTPRequestHandler):
     def solve_subset_sum(self, data, target_sum):
         # Получаем все подмножества множества данных
         all_subsets = list(
-            chain.from_iterable(
-                combinations(data, r) for r in range(len(data) + 1)
-            )
+            chain.from_iterable(combinations(data, r) for r in range(len(data) + 1))
         )
 
         # Фильтруем подмножества, сумма элементов которых равна target_sum

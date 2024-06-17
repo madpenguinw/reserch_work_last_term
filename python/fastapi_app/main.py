@@ -1,15 +1,15 @@
 import json
 from contextlib import asynccontextmanager
 
-import psycopg2
-from fastapi import FastAPI, HTTPException
-from mongoengine import Document, IntField, StringField, connect
-from pymongo import MongoClient
+import aiofiles
+from aiocache import cached  # noqa
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
+from psycopg2 import connect, pool
 from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-import database
 from models import User
 
 app = FastAPI()
@@ -19,148 +19,102 @@ PG_CONN_STRING = (
     "dbname='VKR' user='admin' password='12345678' "
     "host='localhost' port='1234'"
 )
-POSTGRES_URL = (
-    "postgresql+asyncpg://admin:12345678@localhost:1234/VKR"
-)
+POSTGRES_URL = "postgresql+asyncpg://admin:12345678@localhost:1234/VKR"
+POSTGRES_URL_ASYNCPG = "postgresql://admin:12345678@localhost:1234/VKR"
+connection_pool = pool.SimpleConnectionPool(1, 40, PG_CONN_STRING)
 
-# MongoDB configurations
-MONGO_URL = "mongodb://admin:12345678@localhost:3456"
-mongo_client = MongoClient(MONGO_URL)
-mongo_db = mongo_client["VKR"]
-mongo_users_collection = mongo_db["users"]
-
-# MongoEngine setup
-connect(db="VKR", host=MONGO_URL)
 
 # SQLAlchemy setup
-engine = create_async_engine(POSTGRES_URL, echo=True)
+engine = create_async_engine(
+    POSTGRES_URL,
+    echo=True,
+    pool_size=20,
+    max_overflow=20,
+)
 AsyncSessionLocal = sessionmaker(
     bind=engine, class_=AsyncSession, expire_on_commit=False
 )
+Base = declarative_base()
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
-        await conn.run_sync(database.Base.metadata.create_all)
-    yield
-    await engine.dispose()
+        await conn.run_sync(Base.metadata.create_all)
+    try:
+        yield
+    finally:
+        await engine.dispose()
+        connection_pool.closeall()
 
 
 app.router.lifespan_context = lifespan
 
 
-# MongoEngine model
-class MongoUser(Document):
-    firstname = StringField(required=True)
-    lastname = StringField(required=True)
-    patronymic = StringField(required=True)
-    age = IntField(required=True)
-
-    meta = {"collection": "users"}
-
-
-# Endpoints
 @app.get("/empty", tags=["Base"])
 async def get_empty():
     return []
 
 
-@app.get("/readfile/{filename}", tags=["Base"])
-async def read_file(filename: str):
-    try:
-        with open(f"./{filename}", "r") as f:
-            data = json.load(f)
-        return data
-    except FileNotFoundError:
-        raise HTTPException(status_code=404, detail="File not found")
+@app.get("/readfile/sync/{filename}", tags=["Base"])
+async def read_file_sync(filename: str):
+    with open(f"./{filename}", "r") as f:
+        data = json.load(f)
+    return JSONResponse(data)
 
 
-@app.get("/mongo/get_users_odm/{count}", tags=["Mongo"])
-async def get_users_odm(count: int):
-    employees = (
-        MongoUser.objects.limit(count) if count else MongoUser.objects.all()
-    )
-    employees_data = [
-        {
-            "_id": str(employee.id),
-            "firstname": employee.firstname,
-            "patronymic": employee.patronymic,
-            "lastname": employee.lastname,
-            "age": employee.age,
-        }
-        for employee in employees
-    ]
-    return employees_data
+@cached(ttl=300)  # Кэширование на 5 минут
+async def get_file_content(filename: str):
+    async with aiofiles.open(f"./{filename}", "r") as f:
+        data = await f.read()
+        return json.loads(data)
 
 
-@app.get("/mongo/get_users/{count}", tags=["Mongo"])
-async def get_users_driver(count: int):
-    users = list(mongo_users_collection.find().limit(count))
-    for user in users:
-        user["_id"] = str(user["_id"])
-    return users
+@app.get("/readfile/async/{filename}", tags=["Base"])
+async def read_file_async(filename: str):
+    json_data = await get_file_content(filename)
+    return JSONResponse(json_data)
 
 
-@app.get("/postgres/get_users_orm/{count}", tags=["Postgres"])
-async def get_users_orm(count: int):
+@app.get("/postgres/get_users_sqlalchemy_select/{count}", tags=["Postgres"])
+async def get_users_sqlalchemy_select(count: int):
     async with AsyncSessionLocal() as session:
-        query = select(User).limit(count)
-        result = await session.execute(query)
-    users = result.fetchall()
-    user_dicts = [dict(zip(result.keys(), user)) for user in users]
-
-    return user_dicts
+        result = await session.execute(select(User).limit(count))
+        users = result.scalars().all()
+        users_dict = [user.to_dict() for user in users]
+        return JSONResponse(content=users_dict)
 
 
-@app.get("/postgres/get_users_orm_text/{count}", tags=["Postgres"])
-async def get_users_orm_text(count: int):
+@app.get("/postgres/get_users_sqlalchemy_text/{count}", tags=["Postgres"])
+async def get_users_sqlalchemy_text(count: int):
     async with AsyncSessionLocal() as session:
         result = await session.execute(
             text(f"SELECT * FROM users LIMIT {count}")
         )
-        users = result.fetchall()
-    user_dicts = [dict(zip(result.keys(), user)) for user in users]
+        users = result.scalars().all()
+        users_dict = [user.to_dict() for user in users]
+        return JSONResponse(content=users_dict)
 
-    return user_dicts
 
-
-@app.get("/postgres/get_users/{count}", tags=["Postgres"])
-async def get_users_sql(count: int):
-    with psycopg2.connect(PG_CONN_STRING) as conn:
+@app.get("/postgres/get_users_psycopg2/{count}", tags=["Postgres"])
+async def get_users_psycopg2(count: int):
+    with connect(PG_CONN_STRING) as conn:
         with conn.cursor() as cur:
             cur.execute(f"SELECT * FROM users LIMIT {count}")
             users = cur.fetchall()
             columns = [desc[0] for desc in cur.description]
-            result = [dict(zip(columns, row)) for row in users]
-    return result
+    return JSONResponse([dict(zip(columns, row)) for row in users])
 
 
-@app.post("/mongo/populate", tags=["Upload to DB"])
-async def populate_mongo():
-    with open("data.json", "r") as f:
-        data = json.load(f)
-    mongo_users_collection.insert_many(data)
-    return {"status": "success"}
-
-
-@app.post("/mongo/populate_odm", tags=["Upload to DB"])
-async def populate_mongo_odm():
-    with open("data.json", "r") as f:
-        data = json.load(f)
-    for user in data:
-        MongoUser(**user).save()
-    return {"status": "success"}
-
-
-@app.post("/postgres/populate_orm", tags=["Upload to DB"])
-async def populate_postgres():
-    with open("data.json", "r") as f:
-        data = json.load(f)
-    async with AsyncSessionLocal() as session:
-        async with session.begin():
-            session.add_all([User(**user) for user in data])
-    return {"status": "success"}
+@app.get("/postgres/get_users_psycopg2_pool/{count}", tags=["Postgres"])
+async def get_users_psycopg2_pool(count: int):
+    conn = connection_pool.getconn()
+    with conn.cursor() as cur:
+        cur.execute("SELECT * FROM users LIMIT %s", (count,))
+        users = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+    connection_pool.putconn(conn)
+    return JSONResponse([dict(zip(columns, row)) for row in users])
 
 
 @app.post("/postgres/populate", tags=["Upload to DB"])
@@ -171,7 +125,7 @@ async def populate_postgres_sql():
         INSERT INTO users (firstname, lastname, patronymic, age)
         VALUES (%s, %s, %s, %s)
     """
-    with psycopg2.connect(PG_CONN_STRING) as conn:
+    with connect(PG_CONN_STRING) as conn:
         with conn.cursor() as cur:
             for user in data:
                 cur.execute(

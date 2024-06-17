@@ -1,7 +1,6 @@
 import os
 
 from aiohttp import web
-
 from server.logger import custom_logger, log_middleware
 from server.logic import SubsetSumHandler
 
@@ -11,6 +10,7 @@ async def run_app():
     handler = SubsetSumHandler()
 
     app.router.add_get("/getSubsets", handler.get_subsets_handler)
+    app.router.add_get("/getSubsetsNumpy", handler.get_subsets_numpy_handler)
     app.router.add_route(
         "*",
         "/{path:.*}",

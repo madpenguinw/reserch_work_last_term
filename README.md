@@ -22,27 +22,35 @@
 
 ### Доступные сервисы:
 
-1. **JavaScript Sync Version**
+1. **JavaScript CPU-bound Task Sync Version**
     - URL: [http://lmikhailsokolovl.zapto.org/javascript/sync_version](http://lmikhailsokolovl.zapto.org/javascript/sync_version)
     - **Тестовый запрос**:
         - [https://lmikhailsokolovl.zapto.org/javascript/sync_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0](https://lmikhailsokolovl.zapto.org/javascript/sync_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0)
 
-2. **JavaScript Async Version**
+2. **JavaScript CPU-bound Task Async Version**
     - URL: [http://lmikhailsokolovl.zapto.org/javascript/async_version](http://lmikhailsokolovl.zapto.org/javascript/async_version)
     - **Тестовый запрос**:
         - [https://lmikhailsokolovl.zapto.org/javascript/async_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0](https://lmikhailsokolovl.zapto.org/javascript/async_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0)
 
-3. **Python Sync Version**
+3. **Python CPU-bound Task Sync Version**
     - URL: [http://lmikhailsokolovl.zapto.org/python/sync_version](http://lmikhailsokolovl.zapto.org/python/sync_version)
     - **Тестовый запрос**:
         - [https://lmikhailsokolovl.zapto.org/python/sync_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0](https://lmikhailsokolovl.zapto.org/python/sync_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0)
 
-4. **Python Async Version**
+4. **Python CPU-bound Task Async Version**
     - URL: [http://lmikhailsokolovl.zapto.org/python/async_version](http://lmikhailsokolovl.zapto.org/python/async_version)
     - **Тестовый запрос**:
         - [https://lmikhailsokolovl.zapto.org/python/async_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0](https://lmikhailsokolovl.zapto.org/python/async_version/getSubsets?data=[117,120,111,112,-108,104,103,-102,-194,36,-111,-28,101,-55,-99,74,-114]&sum=0)
 
-5. **Terms Glossary**
+5. **Python I/O-bound Task Express Version**
+    - URL: [http://lmikhailsokolovl.zapto.org/javascript/express](http://lmikhailsokolovl.zapto.org/javascript/express)
+    - **Тестовый запрос**:
+        - [https://lmikhailsokolovl.zapto.org/javascript/express/postgres/get_users_pgpool/10000](https://lmikhailsokolovl.zapto.org/javascript/express/postgres/get_users_pgpool/10000)
+
+6. **Python I/O-bound Task FastAPI Version**
+    - URL: [Документация OpenAPI (Swagger)](http://lmikhailsokolovl.zapto.org/python/fastapi/docs)
+
+7. **Terms Glossary**
     - URL: [http://lmikhailsokolovl.zapto.org/terms_glossary/](http://lmikhailsokolovl.zapto.org/terms_glossary/)
     - **Тестовый запрос**:
         - [http://lmikhailsokolovl.zapto.org/terms_glossary/mindmap](http://lmikhailsokolovl.zapto.org/terms_glossary/mindmap)

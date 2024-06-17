@@ -12,3 +12,11 @@ class User(Base):
     lastname = Column(String, nullable=False)
     patronymic = Column(String, nullable=False)
     age = Column(Integer, nullable=False)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "firstname": self.firstname,
+            "patronymic": self.patronymic,
+            "age": self.age,
+        }

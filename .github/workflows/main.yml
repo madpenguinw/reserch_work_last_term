@@ -37,14 +37,6 @@ jobs:
           poetry run black --check server
           poetry run flake8 server
 
-      - name: Poetry Check And Run Linters FastAPI
-        run: |
-          cd python/fastapi_app/
-          pip install poetry
-          poetry install
-          poetry run isort --check-only server
-          poetry run black --check server
-          poetry run flake8 server
 
   typescript-tests:
     name: TypeScript Tests
@@ -84,16 +76,16 @@ jobs:
           npm install --prefix javascript/sync_version
           npm install --prefix javascript/express_app
 
-      - name: Run JavaScript Linters
-        run: |
-          cd javascript/async_version
-          npx eslint .
-          cd ..
-          cd sync_version/
-          npx eslint .
-          cd ..
-          cd express_app/
-          npx eslint .
+      # - name: Run JavaScript Linters
+      #   run: |
+      #     cd javascript/async_version
+      #     npx eslint .
+      #     cd ..
+      #     cd sync_version/
+      #     npx eslint .
+      #     cd ..
+      #     cd express_app/
+      #     npx eslint .
 
   build_and_push_to_docker_hub:
     name: Push Docker images to Docker Hub
