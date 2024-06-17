@@ -1,6 +1,7 @@
 import os
 
 from aiohttp import web
+
 from server.logger import custom_logger, log_middleware
 from server.logic import SubsetSumHandler
 

@@ -6,6 +6,7 @@ from itertools import chain, combinations
 
 import numpy as np
 from aiohttp import web
+
 from server.constants import BAD_REQUEST
 from server.logger import custom_logger
 
@@ -33,7 +34,9 @@ class SubsetSumHandler:
         response_data = {
             "Service": "Python Async Version",
             "Result": result,
-            "Time_ms": int((datetime.now() - start_time).total_seconds() * 1000),
+            "Time_ms": int(
+                (datetime.now() - start_time).total_seconds() * 1000
+            ),
         }
         custom_logger.info(response_data)
 
@@ -58,7 +61,9 @@ class SubsetSumHandler:
         response_data = {
             "Service": "Python Async Version with Numpy",
             "Result": result,
-            "Time_ms": int((datetime.now() - start_time).total_seconds() * 1000),
+            "Time_ms": int(
+                (datetime.now() - start_time).total_seconds() * 1000
+            ),
         }
         custom_logger.info(response_data)
 
@@ -66,7 +71,9 @@ class SubsetSumHandler:
 
     def solve_subset_sum(self, data, target_sum):
         all_subsets = list(
-            chain.from_iterable(combinations(data, r) for r in range(len(data) + 1))
+            chain.from_iterable(
+                combinations(data, r) for r in range(len(data) + 1)
+            )
         )
         result_subsets = [
             list(subset)
@@ -80,11 +87,15 @@ class SubsetSumHandler:
     def solve_subset_sum_numpy(self, data, target_sum):
         data = np.array(data)
         all_subsets = list(
-            chain.from_iterable(combinations(data, r) for r in range(len(data) + 1))
+            chain.from_iterable(
+                combinations(data, r) for r in range(len(data) + 1)
+            )
         )
 
         result_subsets = [
-            list(subset) for subset in all_subsets if np.sum(subset) == target_sum
+            list(subset)
+            for subset in all_subsets
+            if np.sum(subset) == target_sum
         ]
 
         length_result_subsets = len(result_subsets)
