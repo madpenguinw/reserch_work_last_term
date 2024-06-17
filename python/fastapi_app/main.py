@@ -17,10 +17,10 @@ app = FastAPI()
 # PostgreSQL configurations
 PG_CONN_STRING = (
     "dbname='VKR' user='admin' password='12345678' "
-    "host='localhost' port='1234'"
+    "host='lmikhailsokolovl.zapto.org' port='1234'"
 )
-POSTGRES_URL = "postgresql+asyncpg://admin:12345678@localhost:1234/VKR"
-POSTGRES_URL_ASYNCPG = "postgresql://admin:12345678@localhost:1234/VKR"
+POSTGRES_URL = "postgresql+asyncpg://admin:12345678@lmikhailsokolovl.zapto.org:1234/VKR"
+POSTGRES_URL_ASYNCPG = "postgresql://admin:12345678@lmikhailsokolovl.zapto.org:1234/VKR"
 connection_pool = pool.SimpleConnectionPool(1, 40, PG_CONN_STRING)
 
 
