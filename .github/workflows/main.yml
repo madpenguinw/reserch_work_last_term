@@ -181,13 +181,15 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/penguinw/app/
+            sudo docker-compose down -v
+            sudo docker system prune
             sudo docker pull penguinw/research_work-sync_python:latest
             sudo docker pull penguinw/research_work-async_python:latest
             sudo docker pull penguinw/research_work-sync_javascript:latest
             sudo docker pull penguinw/research_work-async_javascript:latest
+            sudo docker pull penguinw/research_work-async_express_app:latest
+            sudo docker pull penguinw/research_work-async_fastapi_app:latest
             sudo docker pull penguinw/research_work-terms_glossary:latest
-            sudo docker-compose down -v
-            sudo docker system prune
             sudo docker-compose up -d
 
   send_message:
