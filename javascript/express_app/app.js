@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(bodyParser.json());
 
-const pgUrl = 'postgres://admin:12345678@localhost:1234/VKR';
+const pgUrl = 'postgres://admin:12345678@lmikhailsokolovl.zapto.org:1234/VKR';
 
 const sequelize = new Sequelize(pgUrl, { dialect: 'postgres' });
 const pgUser = require('./models/pgUser')(sequelize, DataTypes);

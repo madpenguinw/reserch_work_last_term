@@ -48,7 +48,9 @@
         - [https://lmikhailsokolovl.zapto.org/javascript/express/postgres/get_users_pgpool/10000](https://lmikhailsokolovl.zapto.org/javascript/express/postgres/get_users_pgpool/10000)
 
 6. **Python I/O-bound Task FastAPI Version**
-    - URL: [Документация OpenAPI (Swagger)](http://lmikhailsokolovl.zapto.org/python/fastapi/docs)
+    - URL: [https://lmikhailsokolovl.zapto.org/python/fastapi/](http://lmikhailsokolovl.zapto.org/python/fastapi/docs)
+    - **Тестовый запрос**:
+        - [https://lmikhailsokolovl.zapto.org/python/fastapi/postgres/get_users_psycopg2/1000](https://lmikhailsokolovl.zapto.org/python/fastapi/postgres/get_users_psycopg2/1000)
 
 7. **Terms Glossary**
     - URL: [http://lmikhailsokolovl.zapto.org/terms_glossary/](http://lmikhailsokolovl.zapto.org/terms_glossary/)

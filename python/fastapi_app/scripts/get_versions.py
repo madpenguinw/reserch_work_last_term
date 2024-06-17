@@ -7,7 +7,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 MONGO_URL = "mongodb://admin:12345678@localhost:3456"
 
 # PostgreSQL configuration
-POSTGRES_URL = "postgresql://admin:12345678@localhost:1234/VKR"
+POSTGRES_URL = "postgresql://admin:12345678@lmikhailsokolovl.zapto.org:1234/VKR"
 
 
 async def get_mongodb_version():

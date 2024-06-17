@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 app = FastAPI()
 
 # PostgreSQL configurations
-POSTGRES_URL = "postgresql://admin:12345678@localhost:1234/VKR"
+POSTGRES_URL = "postgresql://admin:12345678@lmikhailsokolovl.zapto.org:1234/VKR"
 
 
 @app.on_event("startup")
